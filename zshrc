@@ -65,7 +65,9 @@ zle -N _zsh_cli_fg
 bindkey '^Z' _zsh_cli_fg
 
 # Prettier cat
-alias cat=bat
+if [ -x "$(command -v bat)" ]; then
+  alias cat=bat
+fi
 
 # Make delete key work
 bindkey    "^[[3~"          delete-char

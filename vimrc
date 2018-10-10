@@ -21,8 +21,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'henrik/vim-indexed-search'              " <2 of 10>
 Plugin 'vimwiki/vimwiki.git'                    " Notes
-Plugin 'xolox/vim-misc'                         " Required for opening browser
-Plugin 'xolox/vim-shell'
 
 " search across large codebase
 Plugin 'dyng/ctrlsf.vim'
