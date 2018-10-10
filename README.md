@@ -47,11 +47,6 @@ Collection of various dotfiles
     ln -s vimrc ~/.config/nvim/init.vim
     ```
 * Open Neovim (`nvim`) and run `:PluginInstall`
-* Install dependencies for `tern_for_vim`  
-   ``` 
-   cd ~/.vim/bundle/tern_for_vim  
-   npm install
-   ```
 * Follow [Neovim + python support](https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim)  
    `sudo pip install neovim`  
    run `:UpdateRemotePlugins` in neovim [[Reference](https://github.com/Shougo/deoplete.nvim)]
