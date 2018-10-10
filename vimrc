@@ -1,9 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" ///////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
-" ///////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -19,13 +19,13 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
-Plugin 'dyng/ctrlsf.vim'
 Plugin 'henrik/vim-indexed-search'              " <2 of 10>
 Plugin 'vimwiki/vimwiki.git'                    " Notes
 Plugin 'xolox/vim-misc'                         " Required for opening browser
 Plugin 'xolox/vim-shell'
 
-" taking search to next level
+" search across large codebase
+Plugin 'dyng/ctrlsf.vim'
 Plugin 'mileszs/ack.vim'                        " needs `ag` (preferred) or `ack`
 
 " git
@@ -33,8 +33,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'shumphrey/fugitive-gitlab.vim'
 
 " JS
-" Plugin 'vim-syntastic/syntastic'
-Plugin 'w0rp/ale'
+Plugin 'w0rp/ale'                               " linting
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
@@ -42,7 +41,6 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'prettier/vim-prettier'
 
 " HTML
-" Plugin 'othree/html5.vim'
 Plugin 'ap/vim-css-color'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'mattn/emmet-vim'
@@ -52,20 +50,18 @@ Plugin 'mattn/emmet-vim'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'carlitux/deoplete-ternjs'
 
-" Spotify?!
+" Spotify controls
 Plugin 'HendrikPetertje/vimify'
-
-" JSON parsing inside vimscript
-Plugin 'vimlab/vim-json'
 
 call vundle#end()
 
 filetype plugin indent on
 filetype plugin on
 
-" ///////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configurations
-" ///////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set cursorline                                  " highlight current line
 set number                                      " set line numbers
 syntax on                                       " enable syntax highlight
@@ -79,11 +75,6 @@ set expandtab
 
 set mouse=a                                     " enable mouse scrolling
 set scrolloff=5                                 " Keep a buffer of 5 lines top and bottom when scrolling
-
-" spell check
-set spelllang=en
-" disabled for now
-" set spell
 
 " html has 4 space tab
 autocmd Filetype html setlocal ts=4 sts=4 sw=4 expandtab
@@ -105,7 +96,7 @@ autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 autocmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufRead *.css set filetype=css
 
-"inc files are mason types
+" inc files are mason types
 autocmd BufNewFile,BufRead *.inc set filetype=mason
 
 " save file automatically when buffer is hidden
@@ -133,9 +124,9 @@ set undodir=~/.vim/undo
 set undolevels=1000
 set undoreload=10000
 
-" ////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
-" ////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " mapleader
 let mapleader="g"
@@ -176,10 +167,10 @@ nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
 
-"better use of space in normal mode
+" better use of space in normal mode
 nnoremap <space> viw
 
-"better use of H and L
+" better use of H and L
 nnoremap H ^
 nnoremap L $
 
@@ -191,12 +182,12 @@ inoremap < <><Esc>i
 inoremap " ""<Esc>i
 inoremap ' ''<Esc>i
 
-"copy to outside buffer
+" copy to outside buffer
 vnoremap <leader>y "+y
 
-" /////////////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configurations
-" /////////////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NERDTree
 map tt :NERDTreeFind<CR>                        " find current file in tree
@@ -247,6 +238,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = { 'mason': { 'left': '##' } }
 
 " Ctrlsf
+let g:ctrlsf_search_mode = 'async'
 nmap <leader>s <Plug>CtrlSFCwordPath
 map <C-f> :CtrlSFToggle<cr>
 
@@ -264,6 +256,7 @@ map <Leader>gr <Plug>GitGutterUndoHunk
 
 " fzf
 set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
 let g:fzf_layout = { 'down': '~50%' }
 map <C-p> :FZF<CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -274,7 +267,7 @@ let g:indexed_search_numbered_only = 1
 let g:indexed_search_line_info = 1
 
 " vimify
-" How to get token: https://github.com/HendrikPetertje/vimify#update-march-2018-vimify-now-requires-authentication
+" Get token: https://github.com/HendrikPetertje/vimify#update-march-2018-vimify-now-requires-authentication
 let g:spotify_token=$SPOTIFY_TOKEN
 map <leader>mm :Spotify<CR>
 map <leader>mn :SpNext<CR>
@@ -312,13 +305,7 @@ let g:ale_linter_aliases = {
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 
-" editing vimrc in a jiffy
-" source $MYVIMRC reloads the saved $MYVIMRC
-nnoremap <Leader><Leader>s :source $MYVIMRC <CR>
-" opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
-nnoremap <Leader><Leader>v :e $MYVIMRC <CR>
-
-" Use ag for searching if available
+" ack.vim: Use ag for searching if available
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
