@@ -63,6 +63,7 @@ filetype plugin on
 set cursorline                                  " highlight current line
 set number                                      " set line numbers
 syntax on                                       " enable syntax highlight
+set hidden                                      " allow buffers to be in memory
 set background=dark
 colorscheme solarized
 
