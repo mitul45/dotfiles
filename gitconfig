@@ -59,7 +59,7 @@
   co = checkout
   cob = checkout -b
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [fetch]
   # Auto-prune local branches that are tracking remote branches that don't exist anymore.
   # https://stackoverflow.com/a/44129766
