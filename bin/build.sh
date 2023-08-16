@@ -5,35 +5,36 @@
 ##############################################################3
 
 if [[ ! -a ~/.zshrc ]]; then
-  ln -s ~/.dotfiles/zshrc ~/.zshrc
+  ln -s ~/git/dotfiles/zshrc ~/.zshrc
+fi
+
+if [[ ! -a ~/.gitconfig ]]; then
+  ln -s ~/git/dotfiles/gitconfig ~/.gitconfig
 fi
 
 if [[ ! -a ~/.zshenv ]]; then
-  ln -s ~/.dotfiles/zshenv ~/.zshenv
+  ln -s ~/git/dotfiles/zshenv ~/.zshenv
 fi
 
 if [[ ! -a ~/.tmux.conf ]]; then
-  ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+  ln -s ~/git/dotfiles/tmux.conf ~/.tmux.conf
 fi
 
-if [[ ! -a ~/.gitconfig ]]; then
-  ln -s ~/.dotfiles/gitconfig ~/.gitconfig
-fi
-
-if [[ ! -a ~/.gitconfig ]]; then
-  ln -s ~/.dotfiles/vimrc ~/.vimrc
+if [[ ! -a ~/.config/nvim/init.vim ]]; then
+  mkdir -p ~/.config/nvim
+  ln -s ~/git/dotfiles/init.vim ~/.config/nvim/init.vim
 fi
 
 source ~/.zshenv
 proxy on
 
 ###################################################################################################
-# Setup .vimrc
+# Setup init.vim
 # 1. Check if git is installed
 # 2. Install Neovim
-# 3. Link .vimrc
 # 4. Install Vundle
 # 5. Install all plugins
+# 6. Install node using nvm
 ###################################################################################################
 
 if ! [ -x "$(command -v git)" ]; then
@@ -42,37 +43,47 @@ if ! [ -x "$(command -v git)" ]; then
 fi
 
 if ! [ -x "$(command -v nvim)" ]; then
-  zsh ~/.dotfiles/bin/install-neovim.sh
+  zsh ~/git/dotfiles/bin/install-neovim.sh
 fi
 
 if ! [ -x "$(command -v ag)" ]; then
-  zsh ~/.dotfiles/bin/install-ag.sh
+  zsh ~/git/dotfiles/bin/install-ag.sh
 fi
 
-if [[ ! -a ~/.config/nvim/init.vim ]]; then
-  echo "Linking vimrc..."
-  mkdir -p ~/.config/nvim
-  ln -s ~/.dotfiles/vimrc ~/.config/nvim/init.vim
+if ! [ -x "$(command -v fzf)" ]; then
+  zsh ~/git/dotfiles/bin/install-fzf.sh
 fi
 
-if [[ ! -a ~/.vim/bundle/Vundle.vim ]]; then
-  echo "Installing Vundle..."
-  mkdir -p ~/.vim/bundle
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if ! [ -x "$(command -v node)" ]; then
+  zsh ~/git/dotfiles/bin/install-node.sh
+fi
+
+if ! [ -x "$(command -v bat)" ]; then
+  zsh ~/git/dotfiles/bin/install-bat.sh
+fi
+
+if [[ ! -a ~/.local/share/nvim/site/autoload/plug.vim ]]; then
+  echo "Installing vim-plug..."
+  zsh ~/git/dotfiles/bin/install-vim-plug.sh
 fi
 
 # Install vundle plugins
-echo "Installing vim plugins"
-nvim -c 'PluginInstall' -c 'qa!'
+echo "Installing neovim plugins"
+nvim -c 'PlugInstall' -c 'qa!'
 
 # Install needed modules
 sudo pip3.6 install neovim
 nvim -c 'UpdateRemotePlugins' -c 'qa!'
 
-# Install fzf
-if ! [ -x "$(command -v fzf)" ]; then
-  zsh ~/.dotfiles/bin/install-fzf.sh
+nvim +'CocInstall -sync coc-tsserver coc-eslint coc-json coc-prettier coc-css' +qall
+nvim +CocUpdateSync +qall
+
+if [[ ! -a ~/.config/nvim/coc-settings.json ]]; then
+  echo "Linking coc-settings.json..."
+  mkdir -p ~/.config/nvim
+  ln -s ~/git/dotfiles/coc-settings.json ~/.config/nvim/coc-settings.json
 fi
 
-## Setup flag
-touch ~/.dotfiles/SETUP
+if [[ ! -a ~/git/nodejs ]]; then
+  zsh ~/git/dotfiles/bin/setup-nodejs.git.sh
+fi

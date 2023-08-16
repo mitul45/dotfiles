@@ -8,6 +8,8 @@
   process = git-lfs filter-process
   required = true
   clean = git-lfs clean -- %f
+[commit]
+  verbose = true
 [color]
   ui = auto
 [color "branch"]
@@ -28,6 +30,10 @@
   default = current
 [merge]
   tool = vimdiff
+  # Suppress the git diff --stat after both git merge and git pull.
+  # https://stackoverflow.com/a/54865245
+  stat = false
+[diff]
 [alias]
   b = branch
   s = status
@@ -52,3 +58,9 @@
 
   co = checkout
   cob = checkout -b
+[init]
+	defaultBranch = main
+[fetch]
+  # Auto-prune local branches that are tracking remote branches that don't exist anymore.
+  # https://stackoverflow.com/a/44129766
+  prune = true

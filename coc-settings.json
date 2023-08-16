@@ -1,0 +1,10 @@
+{
+  "suggest.echodocSupport": true,
+  "suggest.maxCompleteItemCount": 50,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript"],
+  "eslint.nodePath": "./node_modules",
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "•",
+  "diagnostic.infoSign": "•",
+  "prettier.onlyUseLocalVersion": true
+}
